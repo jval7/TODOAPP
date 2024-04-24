@@ -1,4 +1,6 @@
 from datetime import datetime, timedelta, timezone
+
+import pytest
 from app import services
 from app.adapters import DatabaseAdapter
 
@@ -171,6 +173,18 @@ def test_should_create_task_when_calling_create_task():
     # Assert
     assert result is not None
     
+def test_should_create_task_when_calling_create_task_with_exception():
+    # Arrange
+    SQLALCHEMY_DATABASE_URL = "sqlite:///./test.db"
+    DatabaseAdapter(db_url=SQLALCHEMY_DATABASE_URL)
+    task = {
+        "": "Tarea de Matemáticas",
+        "description": "Esta es una tarea de matemáticas",
+    }
+    # Act
+    with pytest.raises(Exception):
+        result = services.create_task(task, DatabaseAdapter())
+    
 def test_should_get_task_by_id_when_calling_get_task_by_id():
     # Arrange
     SQLALCHEMY_DATABASE_URL = "sqlite:///./test.db"
@@ -193,5 +207,3 @@ def test_should_get_task_by_id_when_calling_get_task_by_id():
     assert result['teacher'] == services._get_teacher(services._get_complexity(task['description']), task['description'])
     assert result['classroom'] == services._get_classroom(services._get_complexity(task['description']), datetime.now().hour)
     
-    
-    ##

@@ -35,6 +35,9 @@ class DatabaseAdapter:
             self.db.commit()
             self.db.refresh(db_task)
             return db_task
-        except Exception as e:
+        except CreateTaskError as e:
             self.db.rollback()
             raise e
+        
+class CreateTaskError(Exception):
+    pass
