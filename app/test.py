@@ -33,7 +33,7 @@ class TestServices(unittest.TestCase):
     def test_complexity_for_description_length_exactly_50(self):
         self.assertEqual(_get_complexity('a' * 50), "Difícil")
 
-    
+
     def test_complexity_for_description_length_less_than_100(self):
         self.assertEqual(_get_complexity('a' * 99), "Difícil")
 
