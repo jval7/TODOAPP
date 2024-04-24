@@ -63,11 +63,17 @@ def _get_teacher(complexity: str, description: str) -> str:
         else:
             return "Profesor por determinar"
 
-
 def _extract_subject(description: str) -> str:
-    # Implementar
-    return "Matemáticas"
+    # Lista de asignaturas posibles
+    subjects = ["Matemáticas", "Física", "Programación Avanzada", "Historia", "Biología"]
 
+    # Usar expresión regular para buscar cada asignatura en la descripción
+    for subject in subjects:
+        if subject in description:
+            return subject
+
+    # Si no se encuentra ninguna asignatura, devolver un valor por defecto o específico
+    return "Asignatura no especificada"
 
 def _get_classroom(complexity: str, current_hour: int) -> str:
     classrooms = {

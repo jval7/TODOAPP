@@ -5,9 +5,9 @@ import pydantic
 from pydantic import BaseModel
 from datetime import datetime
 from sqlalchemy import Column, Integer, String, Boolean, DateTime
-from sqlalchemy.ext.declarative import declarative_base
-
+from sqlalchemy.orm import declarative_base
 Base = declarative_base()
+
 hashids = Hashids(min_length=8)
 
 
