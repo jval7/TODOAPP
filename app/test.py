@@ -26,20 +26,23 @@ class TestServices(unittest.TestCase):
         self.assertEqual(deadline_date, expected_deadline)
 
 #Function _get_complexity
-    def test_complexity_based_on_description_length(self):
-        # Test when description length is less than 50
+    def test_complexity_for_description_length_less_than_50(self):
         self.assertEqual(_get_complexity('a' * 49), "Fácil")
 
-        # Test when description length is exactly 50
+
+    def test_complexity_for_description_length_exactly_50(self):
         self.assertEqual(_get_complexity('a' * 50), "Difícil")
 
-        # Test when description length is less than 100
+    
+    def test_complexity_for_description_length_less_than_100(self):
         self.assertEqual(_get_complexity('a' * 99), "Difícil")
 
-        # Test when description length is exactly 100
+
+    def test_complexity_for_description_length_exactly_100(self):
         self.assertEqual(_get_complexity('a' * 100), "Muy Difícil")
 
-        # Test when description length is more than 100
+
+    def test_complexity_for_description_length_more_than_100(self):
         self.assertEqual(_get_complexity('a' * 101), "Muy Difícil")
 
 
