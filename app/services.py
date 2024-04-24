@@ -1,4 +1,5 @@
 import random
+import unidecode
 from typing import Optional, Dict
 from datetime import datetime, timedelta
 from app.models import Task
@@ -64,9 +65,15 @@ def _get_teacher(complexity: str, description: str) -> str:
             return "Profesor por determinar"
 
 
+from unidecode import unidecode
+
 def _extract_subject(description: str) -> str:
-    # Implementar
-    return "Matemáticas"
+    subjects = ["Matemáticas", "Física", "Programación Avanzada"]
+    description_normalized = unidecode(description.lower())
+    for subject in subjects:
+        if unidecode(subject.lower()) in description_normalized:
+            return subject
+    return "Materia no encontrada"
 
 
 def _get_classroom(complexity: str, current_hour: int) -> str:
@@ -87,3 +94,4 @@ def _get_classroom(complexity: str, current_hour: int) -> str:
             return classrooms["Muy Difícil"][0]  # Asignar Aula 301 si es antes del mediodía
         else:
             return classrooms["Muy Difícil"][1]  # Asignar Aula 302 si es después del mediodía
+
