@@ -1,8 +1,9 @@
 from datetime import datetime, timedelta, timezone
+from unittest.mock import Mock, patch
 
 import pytest
 from app import services
-from app.adapters import DatabaseAdapter
+from app.adapters import CreateTaskError, DatabaseAdapter
 
 ########### SEGUNDO CORTE - PRUEBAS UNITARIAS ###################### 
 
@@ -176,14 +177,18 @@ def test_should_create_task_when_calling_create_task():
 def test_should_create_task_when_calling_create_task_with_exception():
     # Arrange
     SQLALCHEMY_DATABASE_URL = "sqlite:///./test.db"
-    DatabaseAdapter(db_url=SQLALCHEMY_DATABASE_URL)
+    adapter = DatabaseAdapter(db_url=SQLALCHEMY_DATABASE_URL)
     task = {
-        "": "Tarea de Matemáticas",
+        "title": "Tarea de Matemáticas",
         "description": "Esta es una tarea de matemáticas",
     }
     # Act
-    with pytest.raises(Exception):
-        result = services.create_task(task, DatabaseAdapter())
+    with patch.object(adapter.db, 'commit', side_effect=CreateTaskError), \
+         patch.object(adapter.db, 'rollback', new_callable=Mock) as mock_rollback:
+        with pytest.raises(CreateTaskError):
+            result = services.create_task(task, adapter)
+    # Assert
+    assert mock_rollback.called, "Expected rollback to be called"
     
 def test_should_get_task_by_id_when_calling_get_task_by_id():
     # Arrange
