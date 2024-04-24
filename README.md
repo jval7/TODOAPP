@@ -15,6 +15,8 @@
 - Subir cambios al repositorio remoto: `git push`
 
 # NOTAS
+- EL TRABAJO ES PARA HACERLO EN CLASE, NO SE ACEPTARÁN TRABAJOS FUERA DE CLASE.
+- Subir en una rama con el nombre de cada uno haciendo un pull request a la rama `main`
 - Modificar el archivo `.gitignore` para incluir la carpeta `htmlcov`
 - Subir una captura de pantalla del reporte con `coverage report`
 

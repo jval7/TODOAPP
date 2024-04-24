@@ -66,6 +66,8 @@ def _get_teacher(complexity: str, description: str) -> str:
 
 def _extract_subject(description: str) -> str:
     # Implementar
+    subjects = ["Math", "Spanish", "English", "Physics"]
+
     return "Matemáticas"
 
 
