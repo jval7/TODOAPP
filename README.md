@@ -12,15 +12,15 @@
 # Comandos Git
 - Agregar archivos al stage: `git add .`
 - Crear un commit: `git commit -m"First commit" --no-verify`
-- Subir cambios al repositorio remoto: `git push origin master`
+- Subir cambios al repositorio remoto: `git push`
 
 # NOTAS
 - Modificar el archivo `.gitignore` para incluir la carpeta `htmlcov`
-- Subir una captura de pantalla del reporte
+- Subir una captura de pantalla del reporte con `coverage report`
 
 
 # Calificación
-- Cobertura del 100%: Nota 5, con un 50% del último corte
+- Cobertura de >90%: Nota 5, con un 50% del último corte
 - Cobertura del 70%: Nota 4
 - Cobertura del 55%: Nota 3.5
 - Cobertura del 40%: Nota 3
