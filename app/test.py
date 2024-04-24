@@ -2,7 +2,7 @@ from freezegun import freeze_time
 from datetime import datetime, timedelta
 from unittest.mock import patch
 import random
-from app.services import _get_deadline, _get_complexity, _get_teacher
+from app.services import _get_deadline, _get_complexity, _get_teacher, _get_classroom
 
 
 def test_should_return_correct_deadline_when_calling_get_deadline_method():
@@ -91,3 +91,48 @@ def test_should_return_professor_c_when_complexity_is_very_difficult_and_subject
 
     # Afirmar
     assert result == "Profesor D"
+
+def test_should_return_classroom_101_when_complexity_is_easy():
+    # Configuración
+    complexity = "Fácil"
+    current_hour = 10
+
+    # Actuar
+    result = _get_classroom(complexity, current_hour)
+
+    # Afirmar
+    assert result == "Aula 101"
+
+def test_should_return_classroom_201_when_complexity_is_difficult():
+    # Configuración
+    complexity = "Difícil"
+    current_hour = 10
+
+    # Actuar
+    result = _get_classroom(complexity, current_hour)
+
+    # Afirmar
+    assert result == "Aula 201"
+
+def test_should_return_classroom_301_when_complexity_is_very_difficult_and_current_hour_is_before_noon():
+    # Configuración
+    complexity = "Muy Difícil"
+    current_hour = 10
+
+    # Actuar
+    result = _get_classroom(complexity, current_hour)
+
+    # Afirmar
+    assert result == "Aula 301"
+
+def test_should_return_classroom_302_when_complexity_is_very_difficult_and_current_hour_is_after_noon():
+    # Configuración
+    complexity = "Muy Difícil"
+    current_hour = 13
+
+    # Actuar
+    result = _get_classroom(complexity, current_hour)
+
+    # Afirmar
+    assert result == "Aula 302"
+
