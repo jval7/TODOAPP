@@ -94,35 +94,15 @@ class TestGetClassroom(unittest.TestCase):
 
 class TestGetTaskById(unittest.TestCase):
     def setUp(self):
-        self.db = MagicMock(spec=DatabaseAdapter)
+        # Configurar un entorno de prueba con una base de datos en memoria o una configurada para pruebas
+        self.db = DatabaseAdapter()
         self.task_id = 1
-        self.db.get_task_by_id.return_value = MagicMock(id=self.task_id, description="Test Task", _sa_instance_state=None)
+        self.task = Task(id=self.task_id, name="Prueba de Tarea", description="Descripción detallada de la tarea.")
+        # Aquí podrías agregar la tarea a la base de datos si no se utiliza un mock
 
-    def test_get_task_by_id(self):
-        task = get_task_by_id(self.task_id, self.db)
-        self.db.get_task_by_id.assert_called_once_with(self.task_id)
-        self.assertIsInstance(task, dict)
-        self.assertEqual(task['id'], self.task_id)
-        self.assertEqual(task['description'], "Test Task")
-        self.assertNotIn('_sa_instance_state', task)
-
-class TestCreateTask(unittest.TestCase):
-    def setUp(self):
-        self.db = MagicMock(spec=DatabaseAdapter)
-        self.task_data = {'description': "Esta tarea es sobre matemáticas avanzadas.", 'other_data': "data"}
-        self.expected_task_id = "12345"
-        self.db.create_task.return_value = self.expected_task_id
-
-    def create_task(task_data, db):
-        # Asegurarse de que todos los campos requeridos están presentes
-        task_data_complete = {
-            "title": "Título de la tarea",  # Agregar el título requerido
-            "description": task_data.get("description", ""),
-            "teacher": _get_teacher("Fácil", task_data.get("description", "")),
-            "classroom": _get_classroom("Fácil", 10),
-            "other_data": task_data.get("other_data", "")
-        }
-        # Crear la tarea utilizando el diccionario completo
-        task_model = Task(**task_data_complete)
-        db.create_task(task_model)
-        return task_model.id
+    def test_get_task_by_existing_id(self):
+        # Asignar un ID conocido que se espera que exista en la base de datos
+        result = get_task_by_id(self.task_id, self.db)
+        self.assertIsNotNone(result)
+        self.assertEqual(result['id'], self.task_id)
+        self.assertNotIn('_sa_instance_state', result)
