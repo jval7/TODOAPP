@@ -65,8 +65,11 @@ def _get_teacher(complexity: str, description: str) -> str:
 
 
 def _extract_subject(description: str) -> str:
-    # Implementar
-    return "Matemáticas"
+    subjects = ["Matemáticas", "Física", "Programación Avanzada"]
+    for subject in subjects:
+        if subject in description:
+            return subject
+    return "General" # Si no se encuentra ninguna materia, se asigna "General"
 
 
 def _get_classroom(complexity: str, current_hour: int) -> str:
