@@ -3,6 +3,7 @@ from unittest.mock import patch
 from app.services import _get_deadline, _get_complexity, _get_teacher, _extract_subject, _get_classroom
 
 
+
 # Pruebas para _get_deadline()
 def test_get_deadline():
     with patch('datetime.datetime') as mock_datetime:
@@ -70,3 +71,12 @@ def test_get_classroom_very_difficult_before_noon():
 
 def test_get_classroom_very_difficult_after_noon():
     assert _get_classroom("Muy Difícil", 14) == "Aula 302"
+
+############################################################################
+
+
+def test_singleton_instance():
+    adapter1 = DatabaseAdapter(db_url="sqlite:///:memory:")
+    adapter2 = DatabaseAdapter(db_url="sqlite:///:memory:")
+    assert adapter1 is adapter2
+    assert adapter1._initialized is True
