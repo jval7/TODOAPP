@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta, timezone
 from unittest.mock import Mock, patch
 
-import pytest
+import pytest # type: ignore
 from app import services
 from app.adapters import CreateTaskError, DatabaseAdapter
 
@@ -172,8 +172,8 @@ def test_should_create_task_when_calling_create_task():
     # Act
     result = services.create_task(task, DatabaseAdapter())
     # Assert
-    assert result is not None
-    
+    assert isinstance(result, str), "Expected result to be a string"
+        
 def test_should_create_task_when_calling_create_task_with_exception():
     # Arrange
     SQLALCHEMY_DATABASE_URL = "sqlite:///./test.db"
