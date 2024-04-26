@@ -14,7 +14,8 @@ def get_task_by_id(task_id: int, db: DatabaseAdapter) -> Optional[Dict]:
 def create_task(task: Dict, db: DatabaseAdapter) -> str:
     deadline = _get_deadline()
     complexity = _get_complexity(task["description"])
-    current_hour, teacher = (datetime.now().hour, _get_teacher(complexity=complexity, description=task["description"]))
+    teacher = _get_teacher(complexity=complexity, description=task["description"])
+    current_hour = datetime.now().hour
     classroom = _get_classroom(current_hour=current_hour, complexity=complexity)
     task_model = Task(**task, deadline=deadline, complexity=complexity, teacher=teacher, classroom=classroom)
     db.create_task(task_model)
