@@ -12,7 +12,8 @@ hashids = Hashids(min_length=8)
 
 
 class Task(BaseModel):
-    id: str = pydantic.Field(default_factory=lambda: hashids.encode(int(uuid.uuid4().hex, 16)))
+    id: str = pydantic.Field(default_factory=lambda: hashids.encode(
+        int(uuid.uuid4().hex, 16)))
     title: str
     description: str = None
     completed: bool = False
