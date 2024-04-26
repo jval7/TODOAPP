@@ -1,10 +1,10 @@
 import uuid
-
-from hashids import Hashids
-import pydantic
-from pydantic import BaseModel
 from datetime import datetime
-from sqlalchemy import Column, Integer, String, Boolean, DateTime
+
+import pydantic
+from hashids import Hashids
+from pydantic import BaseModel
+from sqlalchemy import Column, String, Boolean, DateTime
 from sqlalchemy.ext.declarative import declarative_base
 
 Base = declarative_base()
@@ -25,7 +25,7 @@ class Task(BaseModel):
 
 
 class TaskDB(Base):
-    __tablename__ = 'tasks'
+    __tablename__ = "tasks"
     id = Column(String, primary_key=True, index=True)
     title = Column(String, index=True)
     description = Column(String, index=True, nullable=True)
