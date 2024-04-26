@@ -1,0 +1,22 @@
+default_stages: [ commit, manual ]
+
+
+
+repos:
+  - repo: https://github.com/ambv/black
+    rev: 23.12.1
+    hooks:
+      - id: black
+        language_version: python3
+#        args:
+#          - --config
+#          - .code_quality/pyproject_black.toml
+
+          # Style guide enforcement
+  - repo: https://github.com/pycqa/flake8
+    rev: 6.1.0
+    hooks:
+      - id: flake8
+        args: [--ignore=E501]
+#          - --config=.code_quality/.flake8
+
