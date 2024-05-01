@@ -28,9 +28,9 @@ def _get_deadline() -> str:
 
 def _get_complexity(description: str) -> str:
     length = len(description)
-    if length < 50:
+    if length <= 50:
         return "Fácil"
-    elif length < 100:
+    elif length <= 100:
         return "Difícil"
     else:
         return "Muy Difícil"
