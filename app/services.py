@@ -19,6 +19,7 @@ def create_task(task: Dict, db: DatabaseAdapter) -> str:
     classroom = _get_classroom(current_hour=current_hour, complexity=complexity)
 
     task_model = Task(**task, deadline=deadline, complexity=complexity, teacher=teacher, classroom=classroom)
+
     db.create_task(task_model)
     return task_model.id
 
