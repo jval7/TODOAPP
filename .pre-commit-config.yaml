@@ -18,3 +18,15 @@ repos:
     hooks:
     - id: bandit
       args: ['--skip', 'B311']
+
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.6.1
+    hooks:
+      - id: mypy
+#        args:
+#          - --config-file=.code_quality/mypy.ini
+#        additional_dependencies:
+#          - types-PyMySQL
+#          - types-requests
+#          - types-cachetools
+#          - types-pyyaml

@@ -14,17 +14,17 @@ hashids = Hashids(min_length=8)
 class Task(BaseModel):
     id: str = pydantic.Field(default_factory=lambda: hashids.encode(int(uuid.uuid4().hex, 16)))
     title: str
-    description: str = None
+    description: str | None = None
     completed: bool = False
     deadline: str
     complexity: str
     teacher: str
     classroom: str
-    created_at: datetime = None
-    updated_at: datetime = None
+    created_at: datetime | None = None
+    updated_at: datetime | None = None
 
 
-class TaskDB(Base):
+class TaskDB(Base):  # type: ignore
     __tablename__ = "tasks"
     id = Column(String, primary_key=True, index=True)
     title = Column(String, index=True)
