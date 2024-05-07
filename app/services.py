@@ -1,6 +1,6 @@
 import random
 from typing import Optional, Dict
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from app.models import Task
 from app.adapters import DatabaseAdapter
 
@@ -25,7 +25,7 @@ def create_task(task: Dict, db: DatabaseAdapter) -> str:
 
 
 def _get_deadline() -> str:
-    return (datetime.utcnow() + timedelta(days=8)).strftime("%Y-%m-%d")
+    return (datetime.now(timezone.utc) + timedelta(days=8)).strftime("%Y-%m-%d")
 
 
 def _get_complexity(description: str) -> str:
@@ -59,7 +59,14 @@ def _get_teacher(complexity: str, description: str) -> str:
 
 def _extract_subject(description: str) -> str:
     # Implementar
-    return "Matemáticas"
+    if "matemáticas" in description.lower():
+        return "Matemáticas"
+    elif "física" in description.lower():
+        return "Física"
+    elif "programación avanzada" in description.lower():
+        return "Programación Avanzada"
+    else:
+        return "Otro"
 
 
 def _get_classroom(complexity: str, current_hour: int) -> str:
