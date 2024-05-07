@@ -25,7 +25,7 @@ jobs:
 
     - name: Run tests
       run: |
-        poetry run pytest --cov
+        poetry run pytest --cov=my_package
 
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v4
