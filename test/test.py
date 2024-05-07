@@ -1,11 +1,13 @@
 from datetime import datetime, timedelta, timezone
 from unittest.mock import Mock, patch
 
-import pytest # type: ignore
+import pytest  # type: ignore
 from app import services
 from app.adapters import CreateTaskError, DatabaseAdapter
 
-########### SEGUNDO CORTE - PRUEBAS UNITARIAS ###################### 
+
+########### SEGUNDO CORTE - PRUEBAS UNITARIAS ######################
+
 
 def test_should_get_deadline_when_calling_get_deadline():
     # Arrange
@@ -14,7 +16,8 @@ def test_should_get_deadline_when_calling_get_deadline():
     result = services._get_deadline()
     # Assert
     assert result == expected
-    
+
+
 def test_should_get_complexity_when_calling_get_complexity_with_length_less_than_50():
     # Arrange
     description = "Esta es una descripción corta"
@@ -23,7 +26,8 @@ def test_should_get_complexity_when_calling_get_complexity_with_length_less_than
     result = services._get_complexity(description)
     # Assert
     assert result == expected
-    
+
+
 def test_should_get_complexity_when_calling_get_complexity_with_length_less_than_100():
     # Arrange
     description = "Esta es una descripción un poco más larga que la anterior"
@@ -32,7 +36,8 @@ def test_should_get_complexity_when_calling_get_complexity_with_length_less_than
     result = services._get_complexity(description)
     # Assert
     assert result == expected
-    
+
+
 def test_should_get_complexity_when_calling_get_complexity_with_length_greater_than_100():
     # Arrange
     description = "Esta es una descripción muy muy muy larga que supera los 100 caracteres y por lo tanto es muy difícil"
@@ -41,7 +46,8 @@ def test_should_get_complexity_when_calling_get_complexity_with_length_greater_t
     result = services._get_complexity(description)
     # Assert
     assert result == expected
-    
+
+
 def test_should_get_teacher_when_calling_get_teacher_with_complexity_easy():
     # Arrange
     complexity = "Fácil"
@@ -51,7 +57,8 @@ def test_should_get_teacher_when_calling_get_teacher_with_complexity_easy():
     result = services._get_teacher(complexity, description)
     # Assert
     assert result == expected
-    
+
+
 def test_should_get_teacher_when_calling_get_teacher_with_complexity_difficult():
     # Arrange
     complexity = "Difícil"
@@ -61,18 +68,20 @@ def test_should_get_teacher_when_calling_get_teacher_with_complexity_difficult()
     result = services._get_teacher(complexity, description)
     # Assert
     assert result == expected
-    
+
+
 def test_should_get_teacher_when_calling_get_teacher_with_complexity_very_difficult():
     # Arrange
     complexity = "Muy Difícil"
     description = "Tarea de matemáticas muy difícil"
-    expected = { "Profesor C", "Profesor D"}
-    
+    expected = {"Profesor C", "Profesor D"}
+
     # Act
     result = services._get_teacher(complexity, description)
     # Assert
     assert result in expected
-    
+
+
 def test_should_get_teacher_when_calling_get_teacher_with_complexity_very_difficult_and_subject_indeterminate():
     # Arrange
     complexity = "Muy Difícil"
@@ -82,7 +91,8 @@ def test_should_get_teacher_when_calling_get_teacher_with_complexity_very_diffic
     result = services._get_teacher(complexity, description)
     # Assert
     assert result == expected
-    
+
+
 def test_should_extract_subject_when_calling_extract_subject_with_mathematics():
     # Arrange
     description = "Esta es una descripción de Matemáticas"
@@ -91,7 +101,8 @@ def test_should_extract_subject_when_calling_extract_subject_with_mathematics():
     result = services._extract_subject(description)
     # Assert
     assert result == expected
-    
+
+
 def test_should_extract_subject_when_calling_extract_subject_with_physics():
     # Arrange
     description = "Esta es una descripción de Física"
@@ -100,7 +111,8 @@ def test_should_extract_subject_when_calling_extract_subject_with_physics():
     result = services._extract_subject(description)
     # Assert
     assert result == expected
-    
+
+
 def test_should_extract_subject_when_calling_extract_subject_with_advanced_programming():
     # Arrange
     description = "Esta es una descripción de Programación Avanzada"
@@ -109,7 +121,8 @@ def test_should_extract_subject_when_calling_extract_subject_with_advanced_progr
     result = services._extract_subject(description)
     # Assert
     assert result == expected
-    
+
+
 def test_should_extract_subject_when_calling_extract_subject_with_other_subject():
     # Arrange
     description = "Esta es una descripción de una materia no definida"
@@ -118,7 +131,8 @@ def test_should_extract_subject_when_calling_extract_subject_with_other_subject(
     result = services._extract_subject(description)
     # Assert
     assert result == expected
-    
+
+
 def test_should_get_classroom_when_calling_get_classroom_with_complexity_easy():
     # Arrange
     complexity = "Fácil"
@@ -128,7 +142,8 @@ def test_should_get_classroom_when_calling_get_classroom_with_complexity_easy():
     result = services._get_classroom(complexity, current_hour)
     # Assert
     assert result == expected
-    
+
+
 def test_should_get_classroom_when_calling_get_classroom_with_complexity_difficult():
     # Arrange
     complexity = "Difícil"
@@ -138,7 +153,8 @@ def test_should_get_classroom_when_calling_get_classroom_with_complexity_difficu
     result = services._get_classroom(complexity, current_hour)
     # Assert
     assert result == expected
-    
+
+
 def test_should_get_classroom_when_calling_get_classroom_with_complexity_very_difficult():
     # Arrange
     complexity = "Muy Difícil"
@@ -148,7 +164,8 @@ def test_should_get_classroom_when_calling_get_classroom_with_complexity_very_di
     result = services._get_classroom(complexity, current_hour)
     # Assert
     assert result == expected
-    
+
+
 def test_should_get_classroom_when_calling_get_classroom_with_complexity_very_difficult_and_hour_after_12():
     # Arrange
     complexity = "Muy Difícil"
@@ -158,8 +175,10 @@ def test_should_get_classroom_when_calling_get_classroom_with_complexity_very_di
     result = services._get_classroom(complexity, current_hour)
     # Assert
     assert result == expected
-    
+
+
 ########### PUNTOS OPCIONALES - PRUEBAS DE INTEGRACION ############
+
 
 def test_should_create_task_when_calling_create_task():
     # Arrange
@@ -173,7 +192,8 @@ def test_should_create_task_when_calling_create_task():
     result = services.create_task(task, DatabaseAdapter())
     # Assert
     assert isinstance(result, str), "Expected result to be a string"
-        
+
+
 def test_should_create_task_when_calling_create_task_with_exception():
     # Arrange
     SQLALCHEMY_DATABASE_URL = "sqlite:///./test.db"
@@ -183,13 +203,15 @@ def test_should_create_task_when_calling_create_task_with_exception():
         "description": "Esta es una tarea de matemáticas",
     }
     # Act
-    with patch.object(adapter.db, 'commit', side_effect=CreateTaskError), \
-         patch.object(adapter.db, 'rollback', new_callable=Mock) as mock_rollback:
+    with patch.object(adapter.db, "commit", side_effect=CreateTaskError), patch.object(
+        adapter.db, "rollback", new_callable=Mock
+    ) as mock_rollback:
         with pytest.raises(CreateTaskError):
-            result = services.create_task(task, adapter)
+            services.create_task(task, adapter)
     # Assert
     assert mock_rollback.called, "Expected rollback to be called"
-    
+
+
 def test_should_get_task_by_id_when_calling_get_task_by_id():
     # Arrange
     SQLALCHEMY_DATABASE_URL = "sqlite:///./test.db"
@@ -203,12 +225,11 @@ def test_should_get_task_by_id_when_calling_get_task_by_id():
     result = services.get_task_by_id(task_id, DatabaseAdapter())
     # Assert
     assert result is not None
-    assert result['id'] == task_id
-    assert result['title'] == task['title']
-    assert result['description'] == task['description']
-    assert result['completed'] == False
-    assert result['deadline'] == services._get_deadline()
-    assert result['complexity'] == services._get_complexity(task['description'])
-    assert result['teacher'] == services._get_teacher(services._get_complexity(task['description']), task['description'])
-    assert result['classroom'] == services._get_classroom(services._get_complexity(task['description']), datetime.now().hour)
-    
+    assert result["id"] == task_id
+    assert result["title"] == task["title"]
+    assert result["description"] == task["description"]
+    assert not result["completed"]
+    assert result["deadline"] == services._get_deadline()
+    assert result["complexity"] == services._get_complexity(task["description"])
+    assert result["teacher"] == services._get_teacher(services._get_complexity(task["description"]), task["description"])
+    assert result["classroom"] == services._get_classroom(services._get_complexity(task["description"]), datetime.now().hour)

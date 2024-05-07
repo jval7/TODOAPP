@@ -16,7 +16,7 @@ class DatabaseAdapter:
         return cls._instance
 
     def __init__(self, db_url: Optional[str] = None):
-        if self._initialized:
+        if self._initialized:  # type: ignore
             return
         self._initialized = True
         self.engine = create_engine(db_url)
@@ -37,6 +37,7 @@ class DatabaseAdapter:
         except CreateTaskError as e:
             self.db.rollback()
             raise e
-        
+
+
 class CreateTaskError(Exception):
     pass
