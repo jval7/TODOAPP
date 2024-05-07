@@ -1,7 +1,6 @@
-from typing import List, Optional, Type
+from typing import Optional
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from datetime import datetime
 from app.models import Task, TaskDB, Base
 
 
