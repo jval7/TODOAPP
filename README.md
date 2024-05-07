@@ -1,28 +1,29 @@
 # TODOAPP
 
-## Configuración del Ambiente
-- Instalar Poetry: `pip install poetry`
-- Instalar Dependencias: `poetry install`
+[![codecov](https://codecov.io/gh/jval7/TODOAPP/branch/main/graph/badge.svg?token=J2LWBQWZ2M)](https://codecov.io/gh/jval7/TODOAPP)
 
-## Ejecución de Pruebas
-1. Ejecutar Tests: `coverage run -m "nombre de su folder de test"`
-2. Generar Reporte: `coverage report`
-3. Generar Reporte HTML: `coverage html`
+## Environment Setup
+- Install Poetry: `pip install poetry`
+- Install Dependencies: `poetry install`
 
-# Comandos Git
-- Agregar archivos al stage: `git add .`
-- Crear un commit: `git commit -m"First commit" --no-verify`
-- Subir cambios al repositorio remoto: `git push`
+## Running Tests
+1. Run Tests: `coverage run -m "test_folder_name"`
+2. Generate Coverage Report: `coverage report`
+3. Generate HTML Report: `coverage html`
 
-# NOTAS
-- EL TRABAJO ES PARA HACERLO EN CLASE, NO SE ACEPTARÁN TRABAJOS FUERA DE CLASE.
-- Subir en una rama con el nombre de cada uno haciendo un pull request a la rama `main`
-- Modificar el archivo `.gitignore` para incluir la carpeta `htmlcov`
-- Subir una captura de pantalla del reporte con `coverage report`
+# Git Commands
+- Add files to stage: `git add .`
+- Create a commit: `git commit -m "First commit" --no-verify`
+- Push changes to remote repository: `git push`
 
+# Notes
+- The work is expected to be done in class; assignments submitted outside of class will not be accepted.
+- Upload in a branch named after each individual, making a pull request to the `main` branch.
+- Modify the `.gitignore` file to include the `htmlcov` folder.
+- Upload a screenshot of the report using `coverage report`.
 
-# Calificación
-- Cobertura de >90%: Nota 5, con un 50% del último corte
-- Cobertura del 70%: Nota 4
-- Cobertura del 55%: Nota 3.5
-- Cobertura del 40%: Nota 3
+# Grading
+- Coverage >90%: Grade 5, with a 50% weight towards the final score.
+- Coverage 70%: Grade 4
+- Coverage 55%: Grade 3.5
+- Coverage 40%: Grade 3
