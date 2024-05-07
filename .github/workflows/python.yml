@@ -23,6 +23,15 @@ jobs:
         pip install poetry
         poetry install
 
-    - name: Run tests
+    - name: Run tests with coverage
       run: |
-        poetry run pytest
+        poetry run coverage run -m pytest
+
+    - name: Generate coverage report
+      run: |
+        poetry run coverage report -m
+
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v2
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
