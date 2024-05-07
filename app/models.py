@@ -34,5 +34,5 @@ class TaskDB(Base):
     complexity = Column(String)
     teacher = Column(String)
     classroom = Column(String)
-    created_at = Column(DateTime, default=datetime.utcnow)
-    updated_at = Column(DateTime, default=datetime.utcnow)
+    created_at = Column(DateTime, default=datetime.now(timezone.utc))
+    updated_at = Column(DateTime, default=datetime.now(timezone.utc))
