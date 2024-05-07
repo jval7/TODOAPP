@@ -24,6 +24,6 @@ jobs:
         poetry install
 
     - name: Run tests
-      run: pytest
-
-        
+      run: |
+        source $HOME/.poetry/env
+        poetry run pytest
