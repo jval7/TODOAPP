@@ -11,6 +11,13 @@ def get_task_by_id(task_id: int, db: DatabaseAdapter) -> Optional[Dict]:
     return task
 
 
+def get_all_tasks(db: DatabaseAdapter) -> list[Dict]:
+    tasks = db.get_all_tasks()
+    tasks = [dict(task.__dict__) for task in tasks]  # type: ignore
+    [task.pop("_sa_instance_state", None) for task in tasks]
+    return tasks  # type: ignore
+
+
 def create_task(task: Dict, db: DatabaseAdapter) -> str:
     deadline = _get_deadline()
     complexity = _get_complexity(task["description"])

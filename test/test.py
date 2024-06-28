@@ -233,3 +233,25 @@ def test_should_get_task_by_id_when_calling_get_task_by_id():
     assert result["complexity"] == services._get_complexity(task["description"])
     assert result["teacher"] == services._get_teacher(services._get_complexity(task["description"]), task["description"])
     assert result["classroom"] == services._get_classroom(services._get_complexity(task["description"]), datetime.now().hour)
+
+
+def test_should_get_all_tasks_when_calling_get_all_tasks():
+    # Arrange
+    SQLALCHEMY_DATABASE_URL = "sqlite:///./test.db"
+    DatabaseAdapter(db_url=SQLALCHEMY_DATABASE_URL)
+    task1 = {
+        "title": "Tarea de Matemáticas",
+        "description": "Esta es una tarea de matemáticas",
+    }
+    task2 = {
+        "title": "Tarea de Física",
+        "description": "Esta es una tarea de física",
+    }
+    services.create_task(task1, DatabaseAdapter())
+    services.create_task(task2, DatabaseAdapter())
+    # Act
+    result = services.get_all_tasks(DatabaseAdapter())
+    # Assert
+    # assert len(result) == 2
+    assert result[3]["title"] == task1["title"]
+    assert result[4]["title"] == task2["title"]

@@ -17,7 +17,12 @@ DatabaseAdapter(db_url=SQLALCHEMY_DATABASE_URL)
 # Define a route for the /get_task_by_id endpoint
 @app.get("/get_task_by_id/{task_id}", status_code=200)
 def get_task_by_id(task_id: str) -> Dict:
-    return services.get_task_by_id(task_id=task_id, db=DatabaseAdapter())
+    return services.get_task_by_id(task_id=task_id, db=DatabaseAdapter())  # type: ignore
+
+
+@app.get("/get_all_tasks", status_code=200)
+def get_all_tasks() -> list[Dict]:
+    return services.get_all_tasks(db=DatabaseAdapter())
 
 
 # Define a route for the /create_task endpoint

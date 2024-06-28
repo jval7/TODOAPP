@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, Type
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from app.models import Task, TaskDB, Base
@@ -26,6 +26,9 @@ class DatabaseAdapter:
 
     def get_task_by_id(self, task_id: int) -> Optional[Task]:
         return self.db.query(TaskDB).filter(TaskDB.id == task_id).first()  # type: ignore
+
+    def get_all_tasks(self) -> list[Type[TaskDB]]:
+        return self.db.query(TaskDB).all()
 
     def create_task(self, task: Task) -> Task:
         try:
