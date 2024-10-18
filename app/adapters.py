@@ -41,6 +41,24 @@ class DatabaseAdapter:
             self.db.rollback()
             raise e
 
+    def delete_all_tasks(self) -> None:
+        self.db.query(TaskDB).delete()
+        self.db.commit()
+
 
 class CreateTaskError(Exception):
     pass
+
+
+def get_list(n: int = 1, my_list=[]):
+    return []
+    my_list.append(n)
+    return my_list
+
+
+if __name__ == "__main__":  # Only input dev
+    l1 = get_list(1)
+    print(l1)
+    l2 = get_list(2)
+    print(l1)
+    print(l2)
