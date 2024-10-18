@@ -52,6 +52,7 @@ class CreateTaskError(Exception):
 
 def get_list(n: int = 1, my_list=[]):
     return []
+
     my_list.append(n)
     return my_list
 
