@@ -1,4 +1,4 @@
-from typing import Optional, Type
+from typing import Optional, Type, Any
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from app.models import Task, TaskDB, Base
@@ -9,10 +9,10 @@ from app.models import Task, TaskDB, Base
 class DatabaseAdapter:
     _instance = None
 
-    def __new__(cls, *args, **kwargs):
+    def __new__(cls, *args: Any, **kwargs: dict[str, Any]) -> "DatabaseAdapter":
         if cls._instance is None:
             cls._instance = super(DatabaseAdapter, cls).__new__(cls)
-            cls._instance._initialized = False
+            cls._instance._initialized = False  # type: ignore
         return cls._instance
 
     def __init__(self, db_url: Optional[str] = None):
@@ -28,10 +28,9 @@ class DatabaseAdapter:
         return self.db.query(TaskDB).filter(TaskDB.id == task_id).first()  # type: ignore
 
     def get_all_tasks(self) -> list[Type[TaskDB]]:
-        return self.db.query(TaskDB).all()
-        return []
+        return self.db.query(TaskDB).all()  # type: ignore
 
-    def create_task(self, task):
+    def create_task(self, task: Task) -> TaskDB:
         try:
             db_task = TaskDB(**task.model_dump())
             self.db.add(db_task)
