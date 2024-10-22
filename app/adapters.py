@@ -30,7 +30,7 @@ class DatabaseAdapter:
     def get_all_tasks(self) -> list[Type[TaskDB]]:
         return self.db.query(TaskDB).all()
 
-    def create_task(self, task: Task) -> Task:
+    def create_task(self, task):
         try:
             db_task = TaskDB(**task.model_dump())
             self.db.add(db_task)
