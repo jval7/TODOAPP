@@ -9,6 +9,7 @@ cursor = conn.cursor()
 def obtener_usuario_seguro(usuario_id: str) -> list:
     query = "SELECT * FROM usuarios WHERE id = ?"
     cursor.execute(query, (usuario_id,))
+
     return cursor.fetchall()
 
 
