@@ -21,6 +21,7 @@ class DatabaseAdapter:
         self._initialized = True
         self.engine = create_engine(db_url)
         Base.metadata.create_all(bind=self.engine)
+
         SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=self.engine)
         self.db = SessionLocal()
 
